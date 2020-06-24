@@ -20,14 +20,15 @@ public class EditTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
+        // Collect information sent from MainActivity regarding task to edit
         String itemText = getIntent().getStringExtra(ITEM_TEXT);
         itemPosition = getIntent().getIntExtra(ITEM_POSITION, 0);
 
-        // Get Edit Text item and set original text value to be the current task's text
+        // Set Edit Text item's original text value to be the task's current value
         editTextItem = findViewById(R.id.EditTaskItem);
         editTextItem.setText(itemText);
 
-        // Get the Save Task button and create onclick listener to save new task info
+        // Create onclick listener for Save Task button to send information back to Main Activity
         Button btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
