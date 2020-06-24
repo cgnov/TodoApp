@@ -26,7 +26,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='TodoAppTake1' title='Video Walkthrough of Required Features' width='' alt='Video Walkthrough' />
+<img src='TodoAppTake1.gif' title='Video Walkthrough of Required Features' width='' alt='Video Walkthrough of Required Features' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
