@@ -11,16 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
+
+
     public interface OnLongClickListener {
         void onItemLongClicked(int position);
     }
 
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     List<String> tasks;
     OnLongClickListener longClickListener;
-    public TaskAdapter(List<String> tasks, OnLongClickListener longClickListener) {
+    OnClickListener clickListener;
+
+    public TaskAdapter(List<String> tasks, OnLongClickListener longClickListener, OnClickListener clickListener) {
         this.tasks = tasks;
         this.longClickListener = longClickListener;
+        this.clickListener = clickListener;
     }
+
+
 
 
     @NonNull
@@ -59,6 +70,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                     // Notify the listener with which position was long clicked
                     longClickListener.onItemLongClicked(getAdapterPosition());
                     return true;
+                }
+            });
+            tvItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Notify the listener the position of the task that was clicked
+                    clickListener.onItemClicked(getAdapterPosition());
                 }
             });
         }

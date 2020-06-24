@@ -1,10 +1,12 @@
 package com.example.todoapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.LauncherActivity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -23,12 +25,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Defines numeric code to identify Edit Activity
+    public final static int EDIT_REQUEST_CODE = 20;
+    // Defines keys used for passing data to Edit Activity
+    public final static String ITEM_TEXT = "itemText";
+    public final static String ITEM_POSITION = "itemPosition";
+
     List<String> tasks;
 
     Button btnAdd;
     EditText edTxt;
     RecyclerView rvTasks;
     TaskAdapter taskAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +63,24 @@ public class MainActivity extends AppCompatActivity {
                 saveItems();
             }
         };
-        taskAdapter = new TaskAdapter(tasks, onLongClickListener);
+
+        TaskAdapter.OnClickListener onClickListener = new TaskAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                // Declare intent to go to Edit Task Activity
+                Intent i = new Intent(MainActivity.this, EditTaskActivity.class);
+                // Send info regarding position of task to edit
+                i.putExtra(ITEM_POSITION, position);
+                i.putExtra(ITEM_TEXT, tasks.get(position));
+                // Bring up Edit Task Activity
+                startActivityForResult(i, EDIT_REQUEST_CODE);
+            }
+        };
+
+        taskAdapter = new TaskAdapter(tasks, onLongClickListener, onClickListener);
         rvTasks.setAdapter(taskAdapter);
         rvTasks.setLayoutManager(new LinearLayoutManager(this));
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +99,22 @@ public class MainActivity extends AppCompatActivity {
                 saveItems();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE){
+            // Get new task text from extras
+            assert data != null;
+            String newTaskText = data.getExtras().getString(ITEM_TEXT);
+            int position = data.getExtras().getInt(ITEM_POSITION);
+            tasks.set(position, newTaskText);
+            taskAdapter.notifyDataSetChanged();
+            saveItems();
+            Toast.makeText(this, "Task updated", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private File getDataFile(){
