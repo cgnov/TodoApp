@@ -4,7 +4,7 @@
 
 Submitted by: **Camila Garcia-Novelli**
 
-Time spent: **4** hours spent in total
+Time spent: **6** hours spent in total
 
 ## User Stories
 
@@ -16,7 +16,7 @@ The following **required** functionality is completed:
 
 The following **stretch** features are implemented:
 
-* [ ] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
+* [x] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
 
 The following **additional** features are implemented:
 
@@ -26,14 +26,14 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='TodoAppTake1.gif' title='Video Walkthrough of Required Features' width='' alt='Video Walkthrough of Required Features' />
+<img src='TodoAppTake2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
-I had to download Command Line Tools directly from Apple Developer Downloads because otherwise my computer wouldn't allow me to download Git or Homebrew.
+I had to download Command Line Tools directly from Apple Developer Downloads because otherwise my computer wouldn't allow me to download Git or Homebrew. Also, the video for the stretch goal of implementing editing was based on having a ListView rather than a RecyclerView for the tasks, so I had to adapt the method used for the onLongClick instead of following the video directly.
 
 ## License
 
